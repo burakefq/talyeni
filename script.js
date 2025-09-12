@@ -10,7 +10,8 @@ const firebaseConfig = {
     storageBucket: "torbali-anadolu-lisesi-869d8.appspot.com",
     messagingSenderId: "366694577825",
     appId: "1:366694577825:web:f0f80bad77faaa368922e0",
-    measurementId: "G-2LXL8T8P3LE"
+    measurementId: "G-2LXL8T8P3LE",
+    databaseURL: "https://torbali-anadolu-lisesi-869d8-default-rtdb.europe-west1.firebasedatabase.app"
 };
 
 // Firebase'i başlat
@@ -91,7 +92,6 @@ if (document.querySelector('.main-container')) {
     const userRole = localStorage.getItem('userRole');
     const studentName = localStorage.getItem('studentName');
     let studentData = {};
-    let isInitialLoad = true;
 
     const students = [
         "Ali Yılmaz", "Ayşe Can", "Mehmet Demir", "Fatma Kaya", "Emre Çelik",
@@ -121,7 +121,7 @@ if (document.querySelector('.main-container')) {
     const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
     dateElement.textContent = today.toLocaleDateString('tr-TR', options);
 
-    // Firebase'den veri dinlemeye başla
+    // Firebase'den veri dinlemeye başla ve ilk veriyi çek
     onValue(studentsRef, (snapshot) => {
         studentData = snapshot.val() || {};
         if (userRole === 'teacher') {
@@ -246,6 +246,7 @@ if (document.querySelector('.main-container')) {
     async function saveCurrentState() {
         const studentCards = document.querySelectorAll('.student-card');
         const todayString = new Date().toLocaleDateString('tr-TR');
+        const updatedData = { ...studentData };
 
         studentCards.forEach(card => {
             const studentName = card.dataset.name;
@@ -255,24 +256,29 @@ if (document.querySelector('.main-container')) {
             const isAbsent = attendanceBtn.classList.contains('absent');
             const isNotDone = homeworkBtn.classList.contains('not-done');
 
-            const attendanceIndex = (studentData[studentName]?.attendance || []).indexOf(todayString);
+            updatedData[studentName] = updatedData[studentName] || { attendance: [], homework: [] };
+            const attendanceArray = updatedData[studentName].attendance || [];
+            const homeworkArray = updatedData[studentName].homework || [];
+
+            const attendanceIndex = attendanceArray.indexOf(todayString);
             if (isAbsent && attendanceIndex === -1) {
-                studentData[studentName].attendance = studentData[studentName].attendance || [];
-                studentData[studentName].attendance.push(todayString);
+                attendanceArray.push(todayString);
             } else if (!isAbsent && attendanceIndex !== -1) {
-                studentData[studentName].attendance.splice(attendanceIndex, 1);
+                attendanceArray.splice(attendanceIndex, 1);
             }
 
-            const homeworkIndex = (studentData[studentName]?.homework || []).indexOf(todayString);
+            const homeworkIndex = homeworkArray.indexOf(todayString);
             if (isNotDone && homeworkIndex === -1) {
-                studentData[studentName].homework = studentData[studentName].homework || [];
-                studentData[studentName].homework.push(todayString);
+                homeworkArray.push(todayString);
             } else if (!isNotDone && homeworkIndex !== -1) {
-                studentData[studentName].homework.splice(homeworkIndex, 1);
+                homeworkArray.splice(homeworkIndex, 1);
             }
+
+            updatedData[studentName].attendance = attendanceArray;
+            updatedData[studentName].homework = homeworkArray;
         });
 
-        await set(studentsRef, studentData);
+        await set(studentsRef, updatedData);
     }
 
     function loadLastState() {
@@ -284,7 +290,10 @@ if (document.querySelector('.main-container')) {
             const attendanceBtn = card.querySelector('.attendance-btn');
             const homeworkBtn = card.querySelector('.homework-btn');
 
-            if (studentData[studentName] && studentData[studentName].attendance?.includes(todayString)) {
+            const attendanceArray = studentData[studentName]?.attendance || [];
+            const homeworkArray = studentData[studentName]?.homework || [];
+
+            if (attendanceArray.includes(todayString)) {
                 attendanceBtn.classList.remove('present');
                 attendanceBtn.classList.add('absent');
                 attendanceBtn.textContent = 'Yok';
@@ -294,7 +303,7 @@ if (document.querySelector('.main-container')) {
                 attendanceBtn.textContent = 'Var';
             }
 
-            if (studentData[studentName] && studentData[studentName].homework?.includes(todayString)) {
+            if (homeworkArray.includes(todayString)) {
                 homeworkBtn.classList.remove('done');
                 homeworkBtn.classList.add('not-done');
                 homeworkBtn.textContent = 'Ödev Yapmadı';
@@ -319,9 +328,10 @@ if (document.querySelector('.main-container')) {
             const isAbsent = attendanceBtn.classList.contains('absent');
             const isNotDone = homeworkBtn.classList.contains('not-done');
 
-            if (studentData[studentName] &&
-                ((studentData[studentName].attendance?.includes(todayString) || false) !== isAbsent ||
-                (studentData[studentName].homework?.includes(todayString) || false) !== isNotDone)) {
+            const attendanceInDB = studentData[studentName]?.attendance?.includes(todayString) || false;
+            const homeworkInDB = studentData[studentName]?.homework?.includes(todayString) || false;
+
+            if (attendanceInDB !== isAbsent || homeworkInDB !== isNotDone) {
                 hasChanges = true;
             }
         });
