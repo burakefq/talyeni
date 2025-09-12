@@ -1,0 +1,473 @@
+/* Genel Stil Tanımları */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Montserrat', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    overflow: hidden;
+}
+
+/* Splash Screen Stilleri */
+.splash-screen-bg {
+    background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
+}
+
+.splash-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 100;
+}
+
+.content-wrapper {
+    background-color: #ffffff;
+    padding: 60px 40px;
+    border-radius: 20px;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    max-width: 500px;
+    width: 90%;
+    animation: fadeIn 1.5s ease-out;
+}
+
+.header-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.logo {
+    width: 100px;
+    height: 100px;
+    object-fit: contain;
+    margin-bottom: 15px;
+    border-radius: 50%; /* Yeni ekleme */
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1); /* Yeni ekleme */
+    animation: bounceIn 1s ease-out 0.5s forwards; /* Yeni ekleme */
+}
+
+.school-name {
+    font-family: 'Poppins', sans-serif;
+    font-size: 2.5em;
+    color: #334e68;
+    margin: 0;
+}
+
+.tagline {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.2em;
+    color: #556b82;
+    margin: 10px 0 20px;
+    animation: slideInUp 1s ease-out 1s forwards; /* Yeni ekleme */
+}
+
+.created-by {
+    font-size: 1.5em;
+    color: #999;
+    animation: fadeInText 1s ease-out 1.5s forwards; /* Yeni ekleme */
+}
+
+/* Giriş Ekranı Stilleri */
+.login-page-bg {
+    background: linear-gradient(135deg, #a1c4fd, #c2e9fb);
+}
+
+.login-container {
+    background-color: #ffffff;
+    padding: 40px;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    max-width: 450px;
+    width: 90%;
+}
+
+.login-container .page-title {
+    font-size: 2.2em;
+    margin-bottom: 25px;
+    color: #2c3e50;
+}
+
+.user-selection-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+.user-type-btn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 150px;
+    height: 120px;
+    border: 2px solid #ccc;
+    border-radius: 10px;
+    background-color: #f8f9fa;
+    color: #555;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.user-type-btn:hover {
+    border-color: #4a69bd;
+    color: #4a69bd;
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.user-type-btn.active {
+    border-color: #4a69bd;
+    background-color: #e6f0ff;
+    color: #4a69bd;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.user-type-btn i {
+    font-size: 2.5em;
+    margin-bottom: 10px;
+}
+
+.user-type-btn span {
+    font-size: 1em;
+    font-weight: 600;
+}
+
+.login-form {
+    background-color: #fafbfc;
+    padding: 25px;
+    border-radius: 10px;
+    border: 1px solid #e9ecef;
+    animation: fadeIn 0.5s ease-out;
+}
+
+.login-form h2 {
+    font-size: 1.5em;
+    margin-top: 0;
+    color: #34495e;
+}
+
+.login-form p {
+    font-size: 0.9em;
+    color: #7f8c8d;
+    margin-bottom: 20px;
+}
+
+.login-form input {
+    width: calc(100% - 20px);
+    padding: 10px;
+    margin-bottom: 15px;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    font-size: 1em;
+    box-sizing: border-box;
+}
+
+.login-button {
+    width: 100%;
+    padding: 12px;
+    border: none;
+    border-radius: 8px;
+    background-color: #4a69bd;
+    color: #fff;
+    font-size: 1.1em;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.login-button:hover {
+    background-color: #3b53a0;
+}
+
+/* Ana Sayfa İçin CSS Düzeni */
+.main-page-bg {
+    background: #f0f2f5;
+    color: #333;
+}
+
+.main-container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 15px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.page-title {
+    font-size: 2em;
+    font-weight: 700;
+    color: #2c3e50;
+    margin: 0;
+}
+
+.current-date {
+    font-size: 1em;
+    font-weight: 600;
+    color: #7f8c8d;
+}
+
+.student-list-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.student-list-header h3 {
+    font-size: 1.2em;
+    color: #34495e;
+    margin: 0;
+}
+
+.student-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 10px;
+    height: 100%;
+    overflow-y: auto;
+    padding: 5px;
+}
+
+/* Öğrenci Kartı Stilleri */
+.student-card {
+    background-color: #fafbfd;
+    padding: 10px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    transition: all 0.2s ease;
+    border: 1px solid #e9ecef;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    text-align: center;
+}
+
+.student-card:hover {
+    transform: scale(1.03);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.student-card h4 {
+    font-size: 0.9em;
+    font-weight: 600;
+    color: #2c3e50;
+    margin: 0 0 5px 0;
+}
+
+.controls-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    margin-top: auto;
+    width: 100%;
+}
+
+.btn {
+    flex-grow: 1;
+    font-size: 0.8em;
+    padding: 6px 8px;
+    font-weight: 500;
+    border: none;
+    border-radius: 6px;
+    color: #fff;
+    cursor: pointer;
+    transition: transform 0.2s ease, background-color 0.3s ease;
+}
+
+.btn:active {
+    transform: scale(0.95);
+}
+
+/* Buton Renkleri */
+.attendance-btn.absent { background-color: #e74c3c; }
+.attendance-btn.present { background-color: #2ecc71; }
+.homework-btn.not-done { background-color: #f39c12; }
+.homework-btn.done { background-color: #3498db; }
+
+.details-icon {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    font-size: 0.9em;
+    color: #7f8c8d;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.details-icon:hover {
+    color: #4a69bd;
+}
+
+/* Modal Stilleri */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 100;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(5px);
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: 15% auto;
+    padding: 30px;
+    border-radius: 15px;
+    width: 80%;
+    max-width: 500px;
+    position: relative;
+    animation: fadeIn 0.5s ease-out;
+}
+
+.close-btn {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.close-btn:hover,
+.close-btn:focus {
+    color: #000;
+    text-decoration: none;
+}
+
+#modal-student-name {
+    color: #2c3e50;
+    font-size: 1.5em;
+    border-bottom: 2px solid #4a69bd;
+    padding-bottom: 5px;
+    margin-bottom: 20px;
+}
+
+#modal-details-content p {
+    font-size: 1em;
+    color: #555;
+    line-height: 1.5;
+    margin-bottom: 10px;
+}
+
+#modal-details-content ul {
+    list-style: none;
+    padding: 0;
+    margin-top: 10px;
+}
+
+#modal-details-content ul li {
+    background-color: #f0f2f5;
+    padding: 8px 12px;
+    border-radius: 5px;
+    margin-bottom: 5px;
+}
+
+.panel-section {
+    width: 100%;
+    height: 100%;
+}
+
+.student-details-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.student-details-header h3 {
+    font-size: 1.5em;
+    color: #2c3e50;
+    margin: 0;
+}
+
+#student-panel-content ul {
+    list-style: none;
+    padding: 0;
+    margin-top: 20px;
+}
+
+#student-panel-content li {
+    background-color: #f0f2f5;
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Animasyonlar */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes zoomInFadeIn {
+    from { opacity: 0; transform: scale(0.7); }
+    to { opacity: 1; transform: scale(1); }
+}
+
+@keyframes bounceIn {
+    0% { transform: scale(0); opacity: 0; }
+    60% { transform: scale(1.1); opacity: 1; }
+    80% { transform: scale(0.95); }
+    100% { transform: scale(1); }
+}
+
+@keyframes slideInUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeInText {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+/* Kaydet butonu stili */
+.save-btn {
+    background-color: #bdc3c7; /* Gri tonu, başlangıç rengi */
+    color: #fff;
+    font-weight: 600;
+    padding: 8px 15px;
+    border-radius: 8px;
+    border: none;
+    cursor: not-allowed;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.save-btn.active {
+    background-color: #2ecc71; /* Yeşil tonu, aktif renk */
+    cursor: pointer;
+}
+
+.save-btn.active:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}

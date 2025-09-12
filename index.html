@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sınıf Yönetim Sistemi</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+<body class="splash-screen-bg">
+
+    <div class="splash-screen" id="splash-screen">
+        <div class="content-wrapper">
+            <div class="header-section">
+                <a href="https://hizliresim.com/j11yvh6"><img src="https://i.hizliresim.com/j11yvh6.png" alt="Resim Yükle"></a>
+                <h1 class="school-name">Torbalı Anadolu Lisesi</h1>
+            </div>
+            <p class="tagline">Yoklama Ve Ödev Kontrolü</p>
+            <p class="created-by">Burak Efe Tarafından Geliştirildi</p>
+        </div>
+    </div>
+
+    <div class="login-container" id="login-container" style="display: none;">
+        <h1 class="page-title">Sınıf Yönetim Sistemi</h1>
+
+        <div class="user-selection-buttons">
+            <button class="user-type-btn" id="student-btn">
+                <i class="fas fa-user-graduate"></i>
+                <span>Öğrenci Girişi</span>
+            </button>
+            <button class="user-type-btn" id="teacher-btn">
+                <i class="fas fa-chalkboard-teacher"></i>
+                <span>Öğretmen Girişi</span>
+            </button>
+        </div>
+
+        <div id="student-login" class="login-form" style="display:none;">
+            <h2>Öğrenci Girişi</h2>
+            <p>Devamsızlık ve ödev notlarını görüntülemek için adını yaz.</p>
+            <input type="text" id="student-name-input" placeholder="Adını yaz...">
+            <button id="student-login-btn" class="login-button">Giriş Yap</button>
+        </div>
+
+        <div id="teacher-login" class="login-form" style="display:none;">
+            <h2>Öğretmen Girişi</h2>
+            <p>Paneli yönetmek için şifreni gir.</p>
+            <input type="password" id="teacher-password-input" placeholder="Şifre...">
+            <button id="teacher-login-btn" class="login-button">Giriş Yap</button>
+        </div>
+    </div>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyBZ53NTzXj6T_pGL0g0S3kCb66ThTXN-TE",
+            authDomain: "torbali-anadolu-lisesi-869d8.firebaseapp.com",
+            projectId: "torbali-anadolu-lisesi-869d8",
+            storageBucket: "torbali-anadolu-lisesi-869d8.appspot.com",
+            messagingSenderId: "366694577825",
+            appId: "1:366694577825:web:f0f80bad77faaa368922e0",
+            measurementId: "G-2LXL8T8P3LE"
+        };
+
+        const app = initializeApp(firebaseConfig);
+    </script>
+
+   <script type="module" src="script.js"></script>
+</body>
+</html>
