@@ -471,3 +471,91 @@ body {
     transform: translateY(-2px);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
+/* Öğrenci Paneli Genel Düzenlemesi */
+#student-panel {
+    background-color: #f7f9fc;
+    border-radius: 15px;
+    padding: 30px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+#student-panel:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.1);
+}
+
+.student-details-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+    border-bottom: 2px solid #e0e6ed;
+    padding-bottom: 15px;
+}
+
+#student-panel-name {
+    /* Mevcut kodların... */
+    font-size: 2.2rem;
+    font-weight: 700;
+    color: #4a5568;
+    background: linear-gradient(90deg, #4299e1, #63b3ed);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+
+    /* Bu yeni kodları ekle */
+    flex-grow: 1; /* Mevcut alanı doldurmasını sağlar */
+    text-align: left; /* Yazıyı sola yaslar */
+}student-panel-content {
+    margin-top: 20px;
+}
+
+#student-panel-content h4 {
+    font-size: 1.5rem;
+    color: #2d3748;
+    border-left: 4px solid #4299e1;
+    padding-left: 10px;
+    margin-bottom: 15px;
+}
+
+#student-panel-content ul {
+    list-style: none;
+    padding: 0;
+}
+
+#student-panel-content ul li {
+    background-color: #ffffff;
+    border-radius: 8px;
+    padding: 12px 20px;
+    margin-bottom: 10px;
+    font-size: 1rem;
+    color: #4a5568;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    transition: all 0.2s ease;
+}
+
+#student-panel-content ul li:hover {
+    background-color: #f0f4f8;
+    transform: translateX(5px);
+}
+
+/* Devamsızlık ve Ödev Bilgileri için daha belirgin renkler */
+#student-panel-content h4:nth-of-type(1) {
+    color: #e53e3e; /* Devamsızlık başlığı için kırmızı */
+    border-left-color: #e53e3e;
+}
+
+#student-panel-content h4:nth-of-type(2) {
+    color: #38a169; /* Ödev başlığı için yeşil */
+    border-left-color: #38a169;
+}
+
+/* Kayıt Bulunmadığında mesajın stili */
+#student-panel-content p {
+    font-style: italic;
+    color: #718096;
+    text-align: center;
+    padding: 20px;
+    background-color: #ebf4ff;
+    border-radius: 10px;
+}
