@@ -37,6 +37,46 @@ if (splashScreen && loginContainer) {
     const studentLoginBtn = document.getElementById('student-login-btn');
     const teacherPasswordInput = document.getElementById('teacher-password-input');
     const teacherLoginBtn = document.getElementById('teacher-login-btn');
+    const studentSuggestionsList = document.getElementById('student-suggestions');
+
+    // Bu liste, verdiğiniz numaralara göre sıralanmış öğrencileri içerir
+    const students_10E = [
+        { number: 553, name: "Ceylin Serbest" },
+        { number: 574, name: "Fulya Su Şentürk" },
+        { number: 772, name: "İlkbal Şahin" },
+        { number: 773, name: "Melisa Duru Şahin" },
+        { number: 774, name: "Dijle Genç" },
+        { number: 775, name: "Hasan Can Hür" },
+        { number: 776, name: "Barkın Özden" },
+        { number: 777, name: "Emir Elagöz" },
+        { number: 778, name: "Melike Kılıçarslan" },
+        { number: 780, name: "Alperen Hakkı Güler" },
+        { number: 781, name: "Ayşe Su Taş" },
+        { number: 782, name: "Esmanur Bilici" },
+        { number: 783, name: "Yunus Emre Yılmaz" },
+        { number: 785, name: "Duru Ceylin Sarıtekeli" },
+        { number: 786, name: "Berfin Çek" },
+        { number: 787, name: "Nazlıcan Kaya" },
+        { number: 788, name: "Sümeyra Karacadağ" },
+        { number: 789, name: "Ahmet Eren Gümüş" },
+        { number: 790, name: "Elbihan Yoluk" },
+        { number: 791, name: "Egehan Zerman" },
+        { number: 792, name: "Sümeyye Parmaksız" },
+        { number: 793, name: "Asmen Ali Topal" },
+        { number: 794, name: "Halil İbrahim Durmaz" },
+        { number: 795, name: "Eren Tolunay" },
+        { number: 796, name: "Rugeyye Su Çankaya" },
+        { number: 797, name: "Mert Şen" },
+        { number: 798, name: "Beytullah Kollik" },
+        { number: 800, name: "Ekrem Kaan Fidan" },
+        { number: 802, name: "Burak Efe" },
+        { number: 804, name: "Tuyun Seven Özçelik" },
+        { number: 805, name: "Ege Tufan Karaahmetoğlu" },
+        { number: 806, name: "Elif Şahin" },
+        { number: 888, name: "Duru Şahin" },
+        { number: 889, name: "Çağan" },
+        { number: 897, name: "Toprak Kubat" }
+    ];
 
     // Öğrenci Girişi
     studentBtn.addEventListener('click', () => {
@@ -44,20 +84,14 @@ if (splashScreen && loginContainer) {
         teacherLoginForm.style.display = 'none';
         studentBtn.classList.add('active');
         teacherBtn.classList.remove('active');
+        studentSuggestionsList.style.display = 'none'; // Başlangıçta öneri listesini gizle
+        studentNameInput.value = ''; // Giriş alanını temizle
     });
 
     studentLoginBtn.addEventListener('click', () => {
         const name = studentNameInput.value.trim();
-        const students = [
-            "Ali Yılmaz", "Ayşe Can", "Mehmet Demir", "Fatma Kaya", "Emre Çelik",
-            "Zeynep Akın", "Deniz Öztürk", "Caner Güneş", "Selin Arslan", "Burak Efe",
-            "Gizem Kara", "Ozan Yıldız", "Büşra Çetin", "Ahmet Korkmaz", "Ece Aydın",
-            "Murat Şahin", "Pınar Keskin", "Yusuf Kılıç", "Esra Doğan", "Kerem Acar",
-            "Nazlı Tekin", "Furkan Toprak", "Seda Turan", "Cem Erdem", "Elif Koç",
-            "Barış Deniz", "Ceren Koçak", "Kaan Şahin", "Melek Özcan", "Savaş Kaya",
-            "Melike Gür", "Eren Yılmaz", "İrem Ersoy", "Umut Çınar"
-        ];
-        if (students.includes(name)) {
+        const studentExists = students_10E.some(student => student.name === name);
+        if (studentExists) {
             localStorage.setItem('userRole', 'student');
             localStorage.setItem('studentName', name);
             window.location.href = "main.html";
@@ -66,8 +100,40 @@ if (splashScreen && loginContainer) {
         }
     });
 
+    // Kullanıcı yazarken isim önerilerini filtrele
+    studentNameInput.addEventListener('input', () => {
+        const inputText = studentNameInput.value.toLowerCase();
+
+        if (inputText.length === 0) {
+            studentSuggestionsList.style.display = 'none';
+            return;
+        }
+
+        const filteredStudents = students_10E.filter(student =>
+            student.name.toLowerCase().includes(inputText)
+        ).map(student => student.name);
+        updateSuggestions(filteredStudents);
+    });
+
+    // Öneri listesini güncelleyen fonksiyon
+    function updateSuggestions(list) {
+        studentSuggestionsList.innerHTML = '';
+        list.forEach(studentName => {
+            const li = document.createElement('li');
+            li.textContent = studentName;
+            li.addEventListener('click', () => {
+                studentNameInput.value = studentName;
+                studentSuggestionsList.innerHTML = '';
+                studentSuggestionsList.style.display = 'none';
+            });
+            studentSuggestionsList.appendChild(li);
+        });
+        studentSuggestionsList.style.display = list.length > 0 ? 'block' : 'none';
+    }
+
     // Öğretmen Girişi
     teacherBtn.addEventListener('click', () => {
+        studentSuggestionsList.style.display = 'none'; // Öğretmen girişine geçince önerileri gizle
         teacherLoginForm.style.display = 'block';
         studentLoginForm.style.display = 'none';
         teacherBtn.classList.add('active');
@@ -93,14 +159,43 @@ if (document.querySelector('.main-container')) {
     const studentName = localStorage.getItem('studentName');
     let studentData = {};
 
+    // Bu liste de güncellendi
     const students = [
-        "Ali Yılmaz", "Ayşe Can", "Mehmet Demir", "Fatma Kaya", "Emre Çelik",
-        "Zeynep Akın", "Deniz Öztürk", "Caner Güneş", "Selin Arslan", "Burak Efe",
-        "Gizem Kara", "Ozan Yıldız", "Büşra Çetin", "Ahmet Korkmaz", "Ece Aydın",
-        "Murat Şahin", "Pınar Keskin", "Yusuf Kılıç", "Esra Doğan", "Kerem Acar",
-        "Nazlı Tekin", "Furkan Toprak", "Seda Turan", "Cem Erdem", "Elif Koç",
-        "Barış Deniz", "Ceren Koçak", "Kaan Şahin", "Melek Özcan", "Savaş Kaya",
-        "Melike Gür", "Eren Yılmaz", "İrem Ersoy", "Umut Çınar"
+        { number: 553, name: "Ceylin Serbest" },
+        { number: 574, name: "Fulya Su Şentürk" },
+        { number: 772, name: "İlkbal Şahin" },
+        { number: 773, name: "Melisa Duru Şahin" },
+        { number: 774, name: "Dijle Genç" },
+        { number: 775, name: "Hasan Can Hür" },
+        { number: 776, name: "Barkın Özden" },
+        { number: 777, name: "Emir Elagöz" },
+        { number: 778, name: "Melike Kılıçarslan" },
+        { number: 780, name: "Alperen Hakkı Güler" },
+        { number: 781, name: "Ayşe Su Taş" },
+        { number: 782, name: "Esmanur Bilici" },
+        { number: 783, name: "Yunus Emre Yılmaz" },
+        { number: 785, name: "Duru Ceylin Sarıtekeli" },
+        { number: 786, name: "Berfin Çek" },
+        { number: 787, name: "Nazlıcan Kaya" },
+        { number: 788, name: "Sümeyra Karacadağ" },
+        { number: 789, name: "Ahmet Eren Gümüş" },
+        { number: 790, name: "Elbihan Yoluk" },
+        { number: 791, name: "Egehan Zerman" },
+        { number: 792, name: "Sümeyye Parmaksız" },
+        { number: 793, name: "Asmen Ali Topal" },
+        { number: 794, name: "Halil İbrahim Durmaz" },
+        { number: 795, name: "Eren Tolunay" },
+        { number: 796, name: "Rugeyye Su Çankaya" },
+        { number: 797, name: "Mert Şen" },
+        { number: 798, name: "Beytullah Kollik" },
+        { number: 800, name: "Ekrem Kaan Fidan" },
+        { number: 802, name: "Burak Efe" },
+        { number: 804, name: "Tuyun Seven Özçelik" },
+        { number: 805, name: "Ege Tufan Karaahmetoğlu" },
+        { number: 806, name: "Elif Şahin" },
+        { number: 888, name: "Duru Şahin" },
+        { number: 889, name: "Çağan" },
+        { number: 897, name: "Toprak Kubat" }
     ];
 
     const dateElement = document.querySelector('.current-date');
@@ -146,24 +241,28 @@ if (document.querySelector('.main-container')) {
 
     function renderTeacherPanel() {
         studentListContainer.innerHTML = '';
-        students.forEach((student, index) => {
-            if (!studentData[student]) {
-                studentData[student] = { attendance: [], homework: [] };
+        students.forEach((studentObj) => {
+            const studentName = studentObj.name;
+            const studentNumber = studentObj.number;
+
+            if (!studentData[studentName]) {
+                studentData[studentName] = { attendance: [], homework: [] };
             }
 
             const studentCard = document.createElement('div');
             studentCard.className = 'student-card';
-            studentCard.dataset.name = student;
+            studentCard.dataset.name = studentName;
 
             const studentNameElem = document.createElement('h4');
-            studentNameElem.textContent = `${index + 1}. ${student}`;
+            // Okul numarasını da ekledik
+            studentNameElem.textContent = `${studentNumber}. ${studentName}`;
             studentCard.appendChild(studentNameElem);
 
             const detailsIcon = document.createElement('button');
             detailsIcon.className = 'details-icon';
             detailsIcon.innerHTML = '<i class="fas fa-info-circle"></i>';
             detailsIcon.addEventListener('click', () => {
-                showDetailsModal(student);
+                showDetailsModal(studentName);
             });
             studentCard.appendChild(detailsIcon);
 
